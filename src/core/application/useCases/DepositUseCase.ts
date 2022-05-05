@@ -1,7 +1,7 @@
 import { IAccountRepository } from '../repositories/IAccount.repository';
 import { IBankOfficeRepository } from '../repositories/IBankOffice.repository';
 
-export class WithdrawUseCase {
+export class DepositUseCase {
   constructor(
     private accountRepo: IAccountRepository,
     private bankOfficeRepo: IBankOfficeRepository,
@@ -25,9 +25,7 @@ export class WithdrawUseCase {
 
     if (!account) throw new Error('Account does not exist.');
 
-    if (account.getBalance() < amount) throw new Error('Insufficient balance.');
-
-    account.Movement('withdraw', amount);
+    account.Movement('deposit', amount);
 
     return account.getBalance();
   }
