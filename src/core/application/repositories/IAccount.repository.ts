@@ -1,10 +1,10 @@
 import { Account } from '../../domain/entities/Account';
 
 export interface IAccountRepository {
-  findById(id: string): Promise<Account>;
+  findById(id: string): Promise<Account | null>;
 
   findByBranchAndNumber(
-    branch: string,
+    bankOffice: string,
     accountNumber: string,
-  ): Promise<Account>;
+  ): Promise<Account | null>;
 }
