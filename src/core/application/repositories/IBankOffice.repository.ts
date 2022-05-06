@@ -1,5 +1,5 @@
-import { BankOffice } from 'src/core/domain/entities/BankOffice';
+import { BankOfficeDto } from '../Dtos/BankOfficeDto';
 
 export interface IBankOfficeRepository {
-  findByNumber(BankOfficeNumber: string): Promise<BankOffice | null>;
+  findByNumber(BankOfficeNumber: string): Promise<BankOfficeDto | null>;
 }

@@ -5,7 +5,7 @@ export class UUID {
     this.ID = ID;
   }
 
-  static generate() {
-    return new UUID(randomUUID());
+  static generate(id?: string) {
+    return new UUID(id || randomUUID());
   }
 }

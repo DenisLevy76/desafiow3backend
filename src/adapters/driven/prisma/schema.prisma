@@ -11,6 +11,38 @@ datasource db {
 }
 
 model Client {
-  id   String @id
-  name String
+  id      String    @id
+  name    String
+  Account Account[]
+}
+
+model Account {
+  id           String     @id
+  number       String
+  bankOffice   BankOffice @relation(fields: [bankOfficeId], references: [id])
+  balance      Decimal
+  owner        Client     @relation(fields: [clientId], references: [id])
+  bankOfficeId String
+  clientId     String
+  Movement     Movement[]
+}
+
+model BankOffice {
+  id      String    @id
+  number  String
+  name    String
+  Account Account[]
+}
+
+model Movement {
+  id        String       @id
+  account   Account      @relation(fields: [accountId], references: [id])
+  type      MovementType
+  amount    Decimal
+  accountId String
+}
+
+enum MovementType {
+  deposit
+  withdraw
 }
