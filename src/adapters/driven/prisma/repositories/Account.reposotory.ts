@@ -19,6 +19,6 @@ export class AccountRepository implements IAccountRepository {
       where: { number: accountNumber, bankOffice: bankOffice },
     });
 
-    return account;
+    return account || null;
   }
 }

@@ -1,7 +1,4 @@
-import { Account } from 'src/core/domain/entities/Account';
-import { BankOffice } from 'src/core/domain/entities/BankOffice';
-import { Client } from 'src/core/domain/entities/Client';
-import { UUID } from 'src/core/domain/valueObjects/uuid';
+import { Account } from '../../domain/entities/Account';
 import { MovementType } from '../../domain/entities/enums/MovementType';
 import { Movement } from '../../domain/entities/Movement';
 import { IAccountRepository } from '../repositories/IAccount.repository';
@@ -26,14 +23,8 @@ export class WithdrawUseCase {
 
     if (!bankOfficeDto) throw new Error('Bank office does not exist.');
 
-    const bankOffice = new BankOffice(
-      bankOfficeDto.number,
-      bankOfficeDto.name,
-      UUID.generate(bankOfficeDto.id),
-    );
-
     const accountDto = await this.accountRepo.findByBranchAndNumber(
-      bankOffice.number,
+      bankOfficeDto.number,
       accountNumber,
     );
 
@@ -41,17 +32,11 @@ export class WithdrawUseCase {
 
     if (accountDto.balance < amount) throw new Error('Insufficient balance.');
 
-    const clientDto = await this.clientRepo.findById(accountDto.id);
+    const clientDto = await this.clientRepo.findById(accountDto.clientId);
 
-    const client = new Client(clientDto.name, UUID.generate(clientDto.id));
+    if (!clientDto) throw new Error('Client does not exist.');
 
-    const account = new Account(
-      accountDto.number,
-      bankOffice,
-      Number(accountDto.balance),
-      client,
-      UUID.generate(accountDto.id),
-    );
+    const account = Account.createByDto(accountDto, clientDto, bankOfficeDto);
 
     account.Movement(MovementType.WITHDRAW, amount);
 

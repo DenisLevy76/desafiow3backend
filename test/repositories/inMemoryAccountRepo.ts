@@ -30,6 +30,8 @@ export class inMemoryAccountRepo implements IAccountRepository {
         account.number === accountNumber,
     );
 
+    if (!account) return null;
+
     return (
       {
         balance: account.getBalance(),

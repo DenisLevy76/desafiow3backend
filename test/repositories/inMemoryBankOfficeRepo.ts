@@ -7,8 +7,11 @@ export class inMemoryBankOfficeRepo implements IBankOfficeRepository {
 
   async findByNumber(BankOfficeNumber: string): Promise<BankOfficeDto> {
     const bankOffice = this.bankOffices.find(
-      (bankOffice) => bankOffice.number === BankOfficeNumber,
+      (bankOfficeList) => bankOfficeList.number === BankOfficeNumber,
     );
+
+    if (!bankOffice) return null;
+
     return {
       number: bankOffice.number,
       id: bankOffice._id.ID,

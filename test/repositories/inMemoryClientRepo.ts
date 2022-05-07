@@ -4,15 +4,18 @@ import { IClientRepository } from '../../src/core/application/repositories/IClie
 import { Client } from '../../src/core/domain/entities/Client';
 
 export class inMemoryClientRepo implements IClientRepository {
-  private bankOffices: Client[] = [new Client('denis', UUID.generate('123'))];
+  private clients: Client[] = [new Client('denis', UUID.generate('123'))];
 
   async findById(clientId: string): Promise<ClientDto> {
-    const bankOffice = this.bankOffices.find(
-      (client) => client._id.ID === clientId,
-    );
+    const client = this.clients.find((client) => {
+      return client._id.ID === clientId;
+    });
+
+    if (!client) return null;
+
     return {
-      id: bankOffice._id.ID,
-      name: bankOffice.name,
+      id: client._id.ID,
+      name: client.name,
     };
   }
 }
