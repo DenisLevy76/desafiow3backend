@@ -12,7 +12,11 @@ describe('Withdraw tests', () => {
       new inMemoryClientRepo(),
     );
 
-    const newBalance = await withdraw.execute('321', '123', 200);
+    const newBalance = await withdraw.execute(
+      '78e066cd-493b-495e-a328-06adc01366be',
+      '123',
+      200,
+    );
 
     expect(newBalance).toBeInstanceOf(Movement);
     expect(newBalance.amount).toEqual(200);
@@ -27,7 +31,11 @@ describe('Withdraw tests', () => {
     );
 
     try {
-      await withdraw.execute('321', '123', 1005165);
+      await withdraw.execute(
+        '78e066cd-493b-495e-a328-06adc01366be',
+        '123',
+        1005165,
+      );
     } catch (error) {
       expect(error.message).toBe('Insufficient balance.');
     }

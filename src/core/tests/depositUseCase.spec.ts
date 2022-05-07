@@ -12,7 +12,11 @@ describe('Deposit tests', () => {
       new inMemoryClientRepo(),
     );
 
-    const newBalance = await deposit.execute('321', '123', 200);
+    const newBalance = await deposit.execute(
+      '78e066cd-493b-495e-a328-06adc01366be',
+      '123',
+      200,
+    );
 
     expect(newBalance).toBeInstanceOf(Movement);
     expect(newBalance.type).toBe('deposit');
@@ -28,7 +32,11 @@ describe('Deposit tests', () => {
     );
 
     try {
-      await deposit.execute('321', '1223', 200);
+      await deposit.execute(
+        '78e066cd-493b-495e-a328-06adc01366be',
+        '1223',
+        200,
+      );
     } catch (error) {
       expect(error.message).toBe('Account does not exist.');
     }
@@ -42,7 +50,7 @@ describe('Deposit tests', () => {
     );
 
     try {
-      await deposit.execute('3221', '123', 200);
+      await deposit.execute('78e066cd-493b-495e-a328-06adc01366be', '123', 200);
     } catch (error) {
       expect(error.message).toBe('Bank office does not exist.');
     }
