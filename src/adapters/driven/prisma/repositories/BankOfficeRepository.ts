@@ -3,6 +3,13 @@ import { IBankOfficeRepository } from 'src/core/application/repositories/IBankOf
 import { prismaClient } from '../PrismaClient';
 
 export class BankOfficeRepository implements IBankOfficeRepository {
+  async findById(BankOfficeId: string): Promise<BankOfficeDto> {
+    const bankOffice = await prismaClient.bankOffice.findFirst({
+      where: { id: BankOfficeId },
+    });
+
+    return bankOffice;
+  }
   async findByNumber(BankOfficeNumber: string): Promise<BankOfficeDto> {
     const bankOffice = await prismaClient.bankOffice.findFirst({
       where: { number: BankOfficeNumber },
