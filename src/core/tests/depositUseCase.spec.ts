@@ -4,19 +4,15 @@ import { inMemoryBankOfficeRepo } from '../../../test/repositories/inMemoryBankO
 import { DepositUseCase } from '../application/useCases/DepositUseCase';
 import { Movement } from '../domain/entities/Movement';
 
+const deposit = new DepositUseCase(
+  new inMemoryAccountRepo(),
+  new inMemoryBankOfficeRepo(),
+  new inMemoryClientRepo(),
+);
+
 describe('Deposit tests', () => {
   it('should increase 200 in account balance and return 1200.5', async () => {
-    const deposit = new DepositUseCase(
-      new inMemoryAccountRepo(),
-      new inMemoryBankOfficeRepo(),
-      new inMemoryClientRepo(),
-    );
-
-    const newBalance = await deposit.execute(
-      '78e066cd-493b-495e-a328-06adc01366be',
-      '123',
-      200,
-    );
+    const newBalance = await deposit.execute('321', '123', 200);
 
     expect(newBalance).toBeInstanceOf(Movement);
     expect(newBalance.type).toBe('deposit');
@@ -24,35 +20,15 @@ describe('Deposit tests', () => {
     expect(newBalance.account.getBalance()).toBe(1200.5);
   });
 
-  it('Should throw a error of Account does not existe', async () => {
-    const deposit = new DepositUseCase(
-      new inMemoryAccountRepo(),
-      new inMemoryBankOfficeRepo(),
-      new inMemoryClientRepo(),
+  it('Should throw an error of Account does not existe', async () => {
+    await expect(deposit.execute('321', '1223', 200)).rejects.toThrowError(
+      'Account does not exist.',
     );
-
-    try {
-      await deposit.execute(
-        '78e066cd-493b-495e-a328-06adc01366be',
-        '1223',
-        200,
-      );
-    } catch (error) {
-      expect(error.message).toBe('Account does not exist.');
-    }
   });
 
-  it('Should throw a error of Bank office does not existe', async () => {
-    const deposit = new DepositUseCase(
-      new inMemoryAccountRepo(),
-      new inMemoryBankOfficeRepo(),
-      new inMemoryClientRepo(),
+  it('Should throw an error of Bank office does not existe', async () => {
+    await expect(deposit.execute('3221', '123', 200)).rejects.toThrowError(
+      'Bank office does not exist.',
     );
-
-    try {
-      await deposit.execute('78e066cd-493b-495e-a328-06adc01366be', '123', 200);
-    } catch (error) {
-      expect(error.message).toBe('Bank office does not exist.');
-    }
   });
 });

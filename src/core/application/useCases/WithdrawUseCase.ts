@@ -13,12 +13,12 @@ export class WithdrawUseCase {
   ) {}
 
   async execute(
-    accountBankOfficeId: string,
+    accountBankOfficeNumber: string,
     accountNumber: string,
     amount: number,
   ) {
-    const bankOfficeDto = await this.bankOfficeRepo.findById(
-      accountBankOfficeId,
+    const bankOfficeDto = await this.bankOfficeRepo.findByNumber(
+      accountBankOfficeNumber,
     );
 
     if (!bankOfficeDto) throw new Error('Bank office does not exist.');
