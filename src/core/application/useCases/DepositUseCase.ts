@@ -35,6 +35,9 @@ export class DepositUseCase {
 
     const account = Account.createByDto(accountDto, clientDto, bankOfficeDto);
 
+    const movement = account.Movement(MovementType.DEPOSIT, amount);
+    this.accountRepo.movement(movement);
+
     return account.Movement(MovementType.DEPOSIT, amount);
   }
 }
