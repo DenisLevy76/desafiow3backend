@@ -1,8 +1,8 @@
-import { Body, Controller, HttpStatus, Patch, Post, Res } from '@nestjs/common';
+import { Body, Controller, HttpStatus, Patch, Res } from '@nestjs/common';
 import { WithdrawService } from '../../services/withdraw.service';
 import { ROUTES } from '../../../../settings/routes';
 import { WithdrawDto } from 'src/core/application/Dtos/WithdrawDto';
-import e, { Response } from 'express';
+import { Response } from 'express';
 
 @Controller(ROUTES.withdraw)
 export class AccountController {
