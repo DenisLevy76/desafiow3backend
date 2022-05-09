@@ -3,6 +3,7 @@ import { AccountRepository } from 'src/adapters/driven/prisma/repositories/Accou
 import { BankOfficeRepository } from 'src/adapters/driven/prisma/repositories/BankOfficeRepository';
 import { ClientRepository } from 'src/adapters/driven/prisma/repositories/Client.repository';
 import { DepositUseCase } from 'src/core/application/useCases/DepositUseCase';
+import { GetAccountAndValidateUseCase } from 'src/core/application/useCases/GetAccountAndValidateUseCase';
 import { Movement } from 'src/core/domain/entities/Movement';
 
 @Injectable()
@@ -13,16 +14,19 @@ export class DepositService {
     amount: number,
   ): Promise<Movement> {
     try {
-      const depositUseCase = new DepositUseCase(
+      const accountUseCase = new GetAccountAndValidateUseCase(
         new AccountRepository(),
         new BankOfficeRepository(),
         new ClientRepository(),
       );
-      return await depositUseCase.execute(
+      const account = await accountUseCase.execute(
         accountBankOfficeNumber,
         accountNumber,
-        amount,
       );
+      const depositUseCase = new DepositUseCase(new AccountRepository());
+      const movement = await depositUseCase.execute(account, amount);
+      console.log(movement);
+      return movement;
     } catch (error) {
       return error;
     }

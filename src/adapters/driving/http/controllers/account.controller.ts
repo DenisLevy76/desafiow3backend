@@ -40,6 +40,7 @@ export class AccountController {
         accountNumber,
         amount,
       );
+      console.log(movement);
       return response.status(HttpStatus.CREATED).send({ data: movement });
     } catch (error) {
       return response.status(HttpStatus.BAD_GATEWAY).send({ error });
