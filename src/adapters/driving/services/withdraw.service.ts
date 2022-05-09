@@ -11,16 +11,19 @@ export class WithdrawService {
     accountNumber: string,
     amount: number,
   ) {
-    const withdrawUseCase = new WithdrawUseCase(
-      new AccountRepository(),
-      new BankOfficeRepository(),
-      new ClientRepository(),
-    );
-
-    return withdrawUseCase.execute(
-      accountBankOfficeNumber,
-      accountNumber,
-      amount,
-    );
+    try {
+      const withdrawUseCase = new WithdrawUseCase(
+        new AccountRepository(),
+        new BankOfficeRepository(),
+        new ClientRepository(),
+      );
+      return withdrawUseCase.execute(
+        accountBankOfficeNumber,
+        accountNumber,
+        amount,
+      );
+    } catch (error) {
+      return error;
+    }
   }
 }

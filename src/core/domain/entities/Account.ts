@@ -5,6 +5,8 @@ import { Entity } from '../Entity';
 import { UUID } from '../valueObjects/uuid';
 import { BankOffice } from './BankOffice';
 import { Client } from './Client';
+import { MovementType } from './enums/MovementType';
+import { Movement } from './Movement';
 
 export class Account extends Entity {
   readonly _id?: UUID;
@@ -19,7 +21,7 @@ export class Account extends Entity {
     super(_id);
   }
 
-  Movement(type: 'deposit' | 'withdraw', amount: number) {
+  Movement(type: MovementType, amount: number) {
     const movementType = {
       deposit: () => (this.balance += amount),
       withdraw: () => (this.balance -= amount),
@@ -27,7 +29,9 @@ export class Account extends Entity {
 
     movementType[type]();
 
-    return this.balance;
+    const movement = new Movement(this, type, amount);
+
+    return movement;
   }
 
   getBalance() {
@@ -48,6 +52,7 @@ export class Account extends Entity {
       ),
       Number(accountDto.balance),
       new Client(clientDto.name, UUID.generate(clientDto.id)),
+      UUID.generate(accountDto.id),
     );
   }
 }

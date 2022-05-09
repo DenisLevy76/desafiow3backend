@@ -1,6 +1,7 @@
-import { AccountDto } from 'src/core/application/Dtos/AccountDto';
+import { AccountDto } from '../../../../core/application/Dtos/AccountDto';
 import { IAccountRepository } from '../../../../core/application/repositories/IAccount.repository';
 import { prismaClient } from '../PrismaClient';
+import { Movement } from 'src/core/domain/entities/Movement';
 
 export class AccountRepository implements IAccountRepository {
   findById(id: string): Promise<AccountDto> {
@@ -11,7 +12,7 @@ export class AccountRepository implements IAccountRepository {
     bankOfficeId: string,
     accountNumber: string,
   ): Promise<AccountDto> {
-    const bankOffice = await prismaClient.bankOffice.findFirst({
+    const bankOffice = await prismaClient.bankOffice.findUnique({
       where: { id: bankOfficeId },
     });
 
@@ -27,5 +28,24 @@ export class AccountRepository implements IAccountRepository {
     if (!account) return null;
 
     return account;
+  }
+
+  async movement(accountMovement: Movement) {
+    console.log(accountMovement);
+    await prismaClient.account.update({
+      where: { id: accountMovement.account._id.ID },
+      data: {
+        balance: accountMovement.account.getBalance(),
+      },
+    });
+
+    await prismaClient.movement.create({
+      data: {
+        id: accountMovement._id.ID,
+        amount: accountMovement.amount,
+        type: accountMovement.type,
+        accountId: accountMovement.account._id.ID,
+      },
+    });
   }
 }

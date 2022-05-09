@@ -15,7 +15,7 @@ export class DepositUseCase {
     accountBankOfficeNumber: string,
     accountNumber: string,
     amount: number,
-  ) {
+  ): Promise<Movement> {
     const bankOfficeDto = await this.bankOfficeRepo.findByNumber(
       accountBankOfficeNumber,
     );
@@ -35,8 +35,6 @@ export class DepositUseCase {
 
     const account = Account.createByDto(accountDto, clientDto, bankOfficeDto);
 
-    account.Movement(MovementType.DEPOSIT, amount);
-
-    return new Movement(account, MovementType.DEPOSIT, amount);
+    return account.Movement(MovementType.DEPOSIT, amount);
   }
 }

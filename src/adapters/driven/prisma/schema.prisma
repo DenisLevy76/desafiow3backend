@@ -34,6 +34,7 @@ model BankOffice {
   Account Account[]
 }
 
+// TODO: add datetime with created_at
 model Movement {
   id        String       @id
   account   Account      @relation(fields: [accountId], references: [id])

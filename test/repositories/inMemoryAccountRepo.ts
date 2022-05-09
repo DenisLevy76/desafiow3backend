@@ -1,5 +1,6 @@
 import { NotImplementedException } from '@nestjs/common';
 import { AccountDto } from 'src/core/application/Dtos/AccountDto';
+import { Movement } from 'src/core/domain/entities/Movement';
 import { IAccountRepository } from '../../src/core/application/repositories/IAccount.repository';
 
 export class inMemoryAccountRepo implements IAccountRepository {
@@ -29,5 +30,9 @@ export class inMemoryAccountRepo implements IAccountRepository {
     if (!account) return null;
 
     return account;
+  }
+
+  async movement(accountMovement: Movement): Promise<void> {
+    null;
   }
 }

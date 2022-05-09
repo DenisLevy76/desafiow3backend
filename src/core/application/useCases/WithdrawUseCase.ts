@@ -16,7 +16,7 @@ export class WithdrawUseCase {
     accountBankOfficeNumber: string,
     accountNumber: string,
     amount: number,
-  ) {
+  ): Promise<Movement> {
     const bankOfficeDto = await this.bankOfficeRepo.findByNumber(
       accountBankOfficeNumber,
     );
@@ -37,9 +37,11 @@ export class WithdrawUseCase {
     if (!clientDto) throw new Error('Client does not exist.');
 
     const account = Account.createByDto(accountDto, clientDto, bankOfficeDto);
+    console.log(account);
 
-    account.Movement(MovementType.WITHDRAW, amount);
+    const movement = account.Movement(MovementType.WITHDRAW, amount);
+    this.accountRepo.movement(movement);
 
-    return new Movement(account, MovementType.WITHDRAW, amount);
+    return movement;
   }
 }
