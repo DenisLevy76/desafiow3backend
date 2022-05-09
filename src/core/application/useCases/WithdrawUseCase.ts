@@ -37,7 +37,6 @@ export class WithdrawUseCase {
     if (!clientDto) throw new Error('Client does not exist.');
 
     const account = Account.createByDto(accountDto, clientDto, bankOfficeDto);
-    console.log(account);
 
     const movement = account.Movement(MovementType.WITHDRAW, amount);
     this.accountRepo.movement(movement);

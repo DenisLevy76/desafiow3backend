@@ -3,21 +3,22 @@ import { AccountRepository } from 'src/adapters/driven/prisma/repositories/Accou
 import { BankOfficeRepository } from 'src/adapters/driven/prisma/repositories/BankOfficeRepository';
 import { ClientRepository } from 'src/adapters/driven/prisma/repositories/Client.repository';
 import { WithdrawUseCase } from 'src/core/application/useCases/WithdrawUseCase';
+import { Movement } from 'src/core/domain/entities/Movement';
 
 @Injectable()
 export class WithdrawService {
-  execute(
+  async execute(
     accountBankOfficeNumber: string,
     accountNumber: string,
     amount: number,
-  ) {
+  ): Promise<Movement> {
     try {
       const withdrawUseCase = new WithdrawUseCase(
         new AccountRepository(),
         new BankOfficeRepository(),
         new ClientRepository(),
       );
-      return withdrawUseCase.execute(
+      return await withdrawUseCase.execute(
         accountBankOfficeNumber,
         accountNumber,
         amount,

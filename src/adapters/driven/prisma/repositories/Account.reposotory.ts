@@ -4,8 +4,8 @@ import { prismaClient } from '../PrismaClient';
 import { Movement } from 'src/core/domain/entities/Movement';
 
 export class AccountRepository implements IAccountRepository {
-  findById(id: string): Promise<AccountDto> {
-    throw new Error('Method not implemented.');
+  async findById(id: string): Promise<AccountDto> {
+    return prismaClient.account.findUnique({ where: { id } });
   }
 
   async findByBranchAndNumber(
@@ -31,7 +31,6 @@ export class AccountRepository implements IAccountRepository {
   }
 
   async movement(accountMovement: Movement) {
-    console.log(accountMovement);
     await prismaClient.account.update({
       where: { id: accountMovement.account._id.ID },
       data: {
