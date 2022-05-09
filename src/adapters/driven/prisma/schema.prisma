@@ -36,11 +36,12 @@ model BankOffice {
 
 // TODO: add datetime with created_at
 model Movement {
-  id        String       @id
-  account   Account      @relation(fields: [accountId], references: [id])
-  type      MovementType
-  amount    Decimal
-  accountId String
+  id         String       @id
+  account    Account      @relation(fields: [accountId], references: [id])
+  type       MovementType
+  amount     Decimal
+  accountId  String
+  created_at DateTime     @default(now())
 }
 
 enum MovementType {
