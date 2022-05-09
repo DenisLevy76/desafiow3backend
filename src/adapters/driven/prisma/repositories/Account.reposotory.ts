@@ -9,11 +9,11 @@ export class AccountRepository implements IAccountRepository {
   }
 
   async findByBranchAndNumber(
-    bankOfficeId: string,
+    bankOfficeNumber: string,
     accountNumber: string,
   ): Promise<AccountDto> {
-    const bankOffice = await prismaClient.bankOffice.findUnique({
-      where: { id: bankOfficeId },
+    const bankOffice = await prismaClient.bankOffice.findFirst({
+      where: { number: bankOfficeNumber },
     });
 
     if (!bankOffice) return null;

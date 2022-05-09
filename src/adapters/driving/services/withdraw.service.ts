@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { AccountRepository } from 'src/adapters/driven/prisma/repositories/Account.reposotory';
 import { BankOfficeRepository } from 'src/adapters/driven/prisma/repositories/BankOfficeRepository';
 import { ClientRepository } from 'src/adapters/driven/prisma/repositories/Client.repository';
+import { GetAccountAndValidateUseCase } from 'src/core/application/useCases/GetAccountAndValidateUseCase';
 import { WithdrawUseCase } from 'src/core/application/useCases/WithdrawUseCase';
 import { Movement } from 'src/core/domain/entities/Movement';
 
@@ -13,16 +14,20 @@ export class WithdrawService {
     amount: number,
   ): Promise<Movement> {
     try {
-      const withdrawUseCase = new WithdrawUseCase(
+      const accountUseCase = new GetAccountAndValidateUseCase(
         new AccountRepository(),
         new BankOfficeRepository(),
         new ClientRepository(),
       );
-      return await withdrawUseCase.execute(
+      const account = await accountUseCase.execute(
         accountBankOfficeNumber,
         accountNumber,
-        amount,
       );
+
+      const withdrawUseCase = new WithdrawUseCase(new AccountRepository());
+      const movement = await withdrawUseCase.execute(account, amount);
+
+      return movement;
     } catch (error) {
       return error;
     }
