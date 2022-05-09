@@ -2,7 +2,7 @@ import { Entity } from '../Entity';
 import { UUID } from '../valueObjects/uuid';
 import { Account } from './Account';
 import { MovementType } from './enums/MovementType';
-
+// TODO: adicionar agencia
 export class Movement extends Entity {
   readonly _id?: UUID;
   readonly createdAt?: Date;

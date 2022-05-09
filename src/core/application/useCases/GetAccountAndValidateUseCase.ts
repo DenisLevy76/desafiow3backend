@@ -21,7 +21,7 @@ export class GetAccountAndValidateUseCase {
     if (!bankOfficeDto) throw new Error('Bank office does not exist.');
 
     const accountDto = await this.accountRepo.findByBranchAndNumber(
-      bankOfficeDto.id,
+      bankOfficeDto.number,
       accountNumber,
     );
 
