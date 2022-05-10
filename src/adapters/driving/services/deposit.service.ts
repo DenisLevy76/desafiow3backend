@@ -13,22 +13,19 @@ export class DepositService {
     accountNumber: string,
     amount: number,
   ): Promise<Movement> {
-    try {
-      const accountUseCase = new GetAccountAndValidateUseCase(
-        new AccountRepository(),
-        new BankOfficeRepository(),
-        new ClientRepository(),
-      );
-      const account = await accountUseCase.execute(
-        accountBankOfficeNumber,
-        accountNumber,
-      );
-      const depositUseCase = new DepositUseCase(new AccountRepository());
-      const movement = await depositUseCase.execute(account, amount);
-      console.log(movement);
-      return movement;
-    } catch (error) {
-      return error;
-    }
+    const accountUseCase = new GetAccountAndValidateUseCase(
+      new AccountRepository(),
+      new BankOfficeRepository(),
+      new ClientRepository(),
+    );
+    const account = await accountUseCase.execute(
+      accountBankOfficeNumber,
+      accountNumber,
+    );
+
+    const depositUseCase = new DepositUseCase(new AccountRepository());
+    const movement = await depositUseCase.execute(account, amount);
+
+    return movement;
   }
 }

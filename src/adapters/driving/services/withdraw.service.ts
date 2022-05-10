@@ -13,23 +13,19 @@ export class WithdrawService {
     accountNumber: string,
     amount: number,
   ): Promise<Movement> {
-    try {
-      const accountUseCase = new GetAccountAndValidateUseCase(
-        new AccountRepository(),
-        new BankOfficeRepository(),
-        new ClientRepository(),
-      );
-      const account = await accountUseCase.execute(
-        accountBankOfficeNumber,
-        accountNumber,
-      );
+    const accountUseCase = new GetAccountAndValidateUseCase(
+      new AccountRepository(),
+      new BankOfficeRepository(),
+      new ClientRepository(),
+    );
+    const account = await accountUseCase.execute(
+      accountBankOfficeNumber,
+      accountNumber,
+    );
 
-      const withdrawUseCase = new WithdrawUseCase(new AccountRepository());
-      const movement = await withdrawUseCase.execute(account, amount);
+    const withdrawUseCase = new WithdrawUseCase(new AccountRepository());
+    const movement = await withdrawUseCase.execute(account, amount);
 
-      return movement;
-    } catch (error) {
-      return error;
-    }
+    return movement;
   }
 }

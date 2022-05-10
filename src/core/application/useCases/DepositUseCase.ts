@@ -9,6 +9,6 @@ export class DepositUseCase {
     const movement = account.Movement(MovementType.DEPOSIT, amount);
     await this.accountRepo.movement(movement);
 
-    return account.Movement(MovementType.DEPOSIT, amount);
+    return movement;
   }
 }

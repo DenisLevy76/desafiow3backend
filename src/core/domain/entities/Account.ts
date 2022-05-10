@@ -23,8 +23,8 @@ export class Account extends Entity {
 
   Movement(type: MovementType, amount: number) {
     const movementType = {
-      deposit: () => (this.balance += amount),
-      withdraw: () => (this.balance -= amount),
+      [MovementType.DEPOSIT]: () => (this.balance += amount),
+      [MovementType.WITHDRAW]: () => (this.balance -= amount),
     };
 
     movementType[type]();

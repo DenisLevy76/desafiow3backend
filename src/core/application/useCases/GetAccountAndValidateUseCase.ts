@@ -1,3 +1,4 @@
+import { NotFoundException } from '@nestjs/common';
 import { Account } from '../../domain/entities/Account';
 import { IAccountRepository } from '../repositories/IAccount.repository';
 import { IBankOfficeRepository } from '../repositories/IBankOffice.repository';
@@ -18,18 +19,19 @@ export class GetAccountAndValidateUseCase {
       accountBankOfficeNumber,
     );
 
-    if (!bankOfficeDto) throw new Error('Bank office does not exist.');
+    if (!bankOfficeDto)
+      throw new NotFoundException('Bank office does not exist.');
 
     const accountDto = await this.accountRepo.findByBranchAndNumber(
       bankOfficeDto.number,
       accountNumber,
     );
 
-    if (!accountDto) throw new Error('Account does not exist.');
+    if (!accountDto) throw new NotFoundException('Account does not exist.');
 
     const clientDto = await this.clientRepo.findById(accountDto.clientId);
 
-    if (!clientDto) throw new Error('Client does not exist.');
+    if (!clientDto) throw new NotFoundException('Client does not exist.');
 
     const account = Account.createByDto(accountDto, clientDto, bankOfficeDto);
 

@@ -1,5 +1,6 @@
 import { NotImplementedException } from '@nestjs/common';
 import { AccountDto } from 'src/core/application/Dtos/AccountDto';
+import { BankOfficeDto } from 'src/core/application/Dtos/BankOfficeDto';
 import { Movement } from 'src/core/domain/entities/Movement';
 import { IAccountRepository } from '../../src/core/application/repositories/IAccount.repository';
 
@@ -14,18 +15,39 @@ export class inMemoryAccountRepo implements IAccountRepository {
     },
   ];
 
+  private bankOffices: BankOfficeDto[] = [
+    {
+      id: '78e066cd-493b-495e-a328-06adc01366be',
+      name: 'bancão',
+      number: '321',
+    },
+  ];
+
   async findById(id: string): Promise<AccountDto | null> {
     throw new NotImplementedException();
   }
 
+  async findBankOfficesById(number: string): Promise<BankOfficeDto | null> {
+    const bankOffice = this.bankOffices.find(
+      (bankOffice) => bankOffice.number === number,
+    );
+
+    return bankOffice;
+  }
+
   async findByBranchAndNumber(
-    bankOffice: string,
+    bankOfficeNumber: string,
     accountNumber: string,
   ): Promise<AccountDto | null> {
+    const bankOffice = await this.findBankOfficesById(bankOfficeNumber);
     const account = this.accounts.find(
       (account) =>
-        account.bankOfficeId === bankOffice && account.number === accountNumber,
+        account.bankOfficeId === bankOffice.id &&
+        account.number === accountNumber,
     );
+
+    console.log(account);
+    console.log(bankOfficeNumber);
 
     if (!account) return null;
 
