@@ -4,7 +4,6 @@ import { inMemoryAccountRepo } from '../../../test/repositories/inMemoryAccountR
 import { DepositUseCase } from '../application/useCases/DepositUseCase';
 import { GetAccountAndValidateUseCase } from '../application/useCases/GetAccountAndValidateUseCase';
 import { Movement } from '../domain/entities/Movement';
-import { HttpException } from '@nestjs/common';
 
 const deposit = new DepositUseCase(new inMemoryAccountRepo());
 const getAccountUseCase = new GetAccountAndValidateUseCase(

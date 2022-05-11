@@ -17,21 +17,23 @@ model Client {
 }
 
 model Account {
-  id           String     @id
-  number       String
-  bankOffice   BankOffice @relation(fields: [bankOfficeId], references: [id])
-  balance      Decimal
-  owner        Client     @relation(fields: [clientId], references: [id])
-  bankOfficeId String
-  clientId     String
-  Movement     Movement[]
+  id            String          @id
+  number        String
+  bankOffice    BankOffice      @relation(fields: [bankOfficeId], references: [id])
+  balance       Decimal
+  owner         Client          @relation(fields: [clientId], references: [id])
+  bankOfficeId  String
+  clientId      String
+  Movement      Movement[]
+  TransitionLog TransitionLog[]
 }
 
 model BankOffice {
-  id      String    @id
-  number  String
-  name    String
-  Account Account[]
+  id            String          @id
+  number        String
+  name          String
+  Account       Account[]
+  TransitionLog TransitionLog[]
 }
 
 // TODO: add datetime with created_at
@@ -47,4 +49,15 @@ model Movement {
 enum MovementType {
   deposit
   withdraw
+}
+
+model TransitionLog {
+  code            String     @id() @default(uuid())
+  transitionDate  DateTime?  @default(now())
+  agencia         BankOffice @relation(fields: [bankOfficeId], references: [id])
+  account         Account    @relation(fields: [accountId], references: [id])
+  transitionValue Decimal
+
+  bankOfficeId String
+  accountId    String
 }
