@@ -46,5 +46,14 @@ export class AccountRepository implements IAccountRepository {
         accountId: accountMovement.account._id.ID,
       },
     });
+
+    await prismaClient.transitionLog.create({
+      data: {
+        transitionValue: accountMovement.amount,
+        accountId: accountMovement.account._id.ID,
+        bankOfficeId: accountMovement.account.bankOffice._id.ID,
+        type: accountMovement.type,
+      },
+    });
   }
 }

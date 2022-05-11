@@ -23,7 +23,7 @@ model Account {
   balance       Decimal
   owner         Client          @relation(fields: [clientId], references: [id])
   bankOfficeId  String
-  clientId      String
+  clientId      String          @unique
   Movement      Movement[]
   TransitionLog TransitionLog[]
 }
@@ -52,11 +52,12 @@ enum MovementType {
 }
 
 model TransitionLog {
-  code            String     @id() @default(uuid())
-  transitionDate  DateTime?  @default(now())
-  agencia         BankOffice @relation(fields: [bankOfficeId], references: [id])
-  account         Account    @relation(fields: [accountId], references: [id])
+  code            String       @id() @default(uuid())
+  transitionDate  DateTime?    @default(now())
+  bankOffice      BankOffice   @relation(fields: [bankOfficeId], references: [id])
+  account         Account      @relation(fields: [accountId], references: [id])
   transitionValue Decimal
+  type            MovementType
 
   bankOfficeId String
   accountId    String
