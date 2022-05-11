@@ -24,10 +24,11 @@ describe('Withdraw tests', () => {
   });
 
   it('should throw a error of Insufficient balance', async () => {
-    const account = await getAccountUseCase.execute('321', '123');
-
-    await expect(withdraw.execute(account, 1005165)).rejects.toThrowError(
-      'Insufficient balance.',
-    );
+    try {
+      const account = await getAccountUseCase.execute('321', '123');
+      await withdraw.execute(account, 1005165);
+    } catch (error) {
+      expect(error.message).toBe('Insufficient balance.');
+    }
   });
 });

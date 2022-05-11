@@ -4,6 +4,7 @@ import { inMemoryAccountRepo } from '../../../test/repositories/inMemoryAccountR
 import { DepositUseCase } from '../application/useCases/DepositUseCase';
 import { GetAccountAndValidateUseCase } from '../application/useCases/GetAccountAndValidateUseCase';
 import { Movement } from '../domain/entities/Movement';
+import { HttpException } from '@nestjs/common';
 
 const deposit = new DepositUseCase(new inMemoryAccountRepo());
 const getAccountUseCase = new GetAccountAndValidateUseCase(
@@ -25,18 +26,21 @@ describe('Deposit tests', () => {
   });
 
   it('Should throw an error of Account does not existe', async () => {
-    const account = await getAccountUseCase.execute('321', '1232313');
+    try {
+      const account = await getAccountUseCase.execute('321', '1232313');
 
-    await expect(deposit.execute(account, 200)).rejects.toThrow(
-      'Account does not exist.',
-    );
+      await deposit.execute(account, 200);
+    } catch (error) {
+      expect(error.message).toBe('Account does not exist.');
+    }
   });
 
   it('Should throw an error of Bank office does not existe', async () => {
-    const account = await getAccountUseCase.execute('3242311', '123');
-
-    await expect(deposit.execute(account, 200)).rejects.toThrowError(
-      'Bank office does not exist.',
-    );
+    try {
+      const account = await getAccountUseCase.execute('32221', '123');
+      await deposit.execute(account, 200);
+    } catch (error) {
+      expect(error.message).toBe('Bank office does not exist.');
+    }
   });
 });

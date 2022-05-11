@@ -46,9 +46,6 @@ export class inMemoryAccountRepo implements IAccountRepository {
         account.number === accountNumber,
     );
 
-    console.log(account);
-    console.log(bankOfficeNumber);
-
     if (!account) return null;
 
     return account;
