@@ -3,19 +3,18 @@ import {
   Controller,
   Get,
   HttpStatus,
-  Param,
   Patch,
   Query,
   Res,
 } from '@nestjs/common';
 import { WithdrawService } from '../../services/withdraw.service';
 import { ROUTES } from '../../../../settings/routes';
-import { WithdrawDto } from 'src/core/application/Dtos/WithdrawDto';
+import { WithdrawDto } from '../../../../core/application/Dtos/WithdrawDto';
 import { Response } from 'express';
 import { DepositService } from '../../services/deposit.service';
 import { GetBalanceService } from '../../services/getbalance.service';
-import { DepositDto } from 'src/core/application/Dtos/DepositDto';
-import { GetBalanceDto } from 'src/core/application/Dtos/getBalanceDto';
+import { DepositDto } from '../../../../core/application/Dtos/DepositDto';
+import { GetBalanceDto } from '../../../../core/application/Dtos/getBalanceDto';
 
 @Controller()
 export class AccountController {

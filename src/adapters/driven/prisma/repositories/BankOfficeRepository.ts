@@ -1,5 +1,5 @@
-import { BankOfficeDto } from 'src/core/application/Dtos/BankOfficeDto';
-import { IBankOfficeRepository } from 'src/core/application/repositories/IBankOffice.repository';
+import { BankOfficeDto } from '../../../../core/application/Dtos/BankOfficeDto';
+import { IBankOfficeRepository } from '../../../../core/application/repositories/IBankOffice.repository';
 import { prismaClient } from '../PrismaClient';
 
 export class BankOfficeRepository implements IBankOfficeRepository {

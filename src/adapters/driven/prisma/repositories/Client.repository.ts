@@ -1,5 +1,5 @@
-import { ClientDto } from 'src/core/application/Dtos/ClientDto';
-import { IClientRepository } from 'src/core/application/repositories/IClient.repository';
+import { ClientDto } from '../../../../core/application/Dtos/ClientDto';
+import { IClientRepository } from '../../../../core/application/repositories/IClient.repository';
 import { prismaClient } from '../PrismaClient';
 
 export class ClientRepository implements IClientRepository {

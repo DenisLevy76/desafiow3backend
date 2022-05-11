@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { AccountRepository } from 'src/adapters/driven/prisma/repositories/Account.reposotory';
-import { BankOfficeRepository } from 'src/adapters/driven/prisma/repositories/BankOfficeRepository';
-import { ClientRepository } from 'src/adapters/driven/prisma/repositories/Client.repository';
-import { DepositUseCase } from 'src/core/application/useCases/DepositUseCase';
-import { GetAccountAndValidateUseCase } from 'src/core/application/useCases/GetAccountAndValidateUseCase';
-import { Movement } from 'src/core/domain/entities/Movement';
+import { AccountRepository } from '../../driven/prisma/repositories/Account.reposotory';
+import { BankOfficeRepository } from '../../driven/prisma/repositories/BankOfficeRepository';
+import { ClientRepository } from '../../driven/prisma/repositories/Client.repository';
+import { DepositUseCase } from '../../../core/application/useCases/DepositUseCase';
+import { GetAccountAndValidateUseCase } from '../../../core/application/useCases/GetAccountAndValidateUseCase';
+import { Movement } from '../../../core/domain/entities/Movement';
 
 @Injectable()
 export class DepositService {

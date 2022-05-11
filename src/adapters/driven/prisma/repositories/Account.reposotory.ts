@@ -1,7 +1,7 @@
 import { AccountDto } from '../../../../core/application/Dtos/AccountDto';
 import { IAccountRepository } from '../../../../core/application/repositories/IAccount.repository';
 import { prismaClient } from '../PrismaClient';
-import { Movement } from 'src/core/domain/entities/Movement';
+import { Movement } from '../../../../core/domain/entities/Movement';
 
 export class AccountRepository implements IAccountRepository {
   async findById(id: string): Promise<AccountDto> {

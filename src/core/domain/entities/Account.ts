@@ -1,6 +1,6 @@
-import { AccountDto } from 'src/core/application/Dtos/AccountDto';
-import { BankOfficeDto } from 'src/core/application/Dtos/BankOfficeDto';
-import { ClientDto } from 'src/core/application/Dtos/ClientDto';
+import { AccountDto } from '../../application/Dtos/AccountDto';
+import { BankOfficeDto } from '../../application/Dtos/BankOfficeDto';
+import { ClientDto } from '../../application/Dtos/ClientDto';
 import { Entity } from '../Entity';
 import { UUID } from '../valueObjects/uuid';
 import { BankOffice } from './BankOffice';

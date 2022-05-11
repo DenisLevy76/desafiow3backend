@@ -1,5 +1,5 @@
 import { HttpException, HttpStatus } from '@nestjs/common';
-import { Account } from 'src/core/domain/entities/Account';
+import { Account } from '../../domain/entities/Account';
 import { MovementType } from '../../domain/entities/enums/MovementType';
 import { Movement } from '../../domain/entities/Movement';
 import { IAccountRepository } from '../repositories/IAccount.repository';

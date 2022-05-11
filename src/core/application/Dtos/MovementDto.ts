@@ -1,4 +1,4 @@
-import { MovementType } from 'src/core/domain/entities/enums/MovementType';
+import { MovementType } from '../../domain/entities/enums/MovementType';
 
 export type MovementDto = {
   id: string;

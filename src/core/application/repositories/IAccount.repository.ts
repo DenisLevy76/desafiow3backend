@@ -1,4 +1,4 @@
-import { Movement } from 'src/core/domain/entities/Movement';
+import { Movement } from '../../domain/entities/Movement';
 import { AccountDto } from '../Dtos/AccountDto';
 
 export interface IAccountRepository {

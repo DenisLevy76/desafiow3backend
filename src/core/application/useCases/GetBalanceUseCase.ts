@@ -1,4 +1,4 @@
-import { Account } from 'src/core/domain/entities/Account';
+import { Account } from '../../domain/entities/Account';
 
 export class GetBalanceUseCase {
   execute(account: Account): number {
