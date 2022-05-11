@@ -1,10 +1,16 @@
 import { Module } from '@nestjs/common';
-import { AccountController } from './http/controllers/account.controller';
+import { DepositController } from './http/controllers/deposit.controller';
+import { GetBalanceController } from './http/controllers/getbalance.controller';
+import { WithdrawController } from './http/controllers/withdraw.controller';
 import { DepositService } from './services/deposit.service';
 import { GetBalanceService } from './services/getbalance.service';
 import { WithdrawService } from './services/withdraw.service';
 
-const httpControllers = [AccountController];
+const httpControllers = [
+  DepositController,
+  GetBalanceController,
+  WithdrawController,
+];
 
 @Module({
   imports: [],
