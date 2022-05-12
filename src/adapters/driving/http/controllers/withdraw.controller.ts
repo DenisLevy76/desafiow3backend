@@ -1,7 +1,7 @@
 import { Body, Controller, HttpStatus, Patch, Res } from '@nestjs/common';
 import { Response } from 'express';
-import { WithdrawDto } from 'src/core/application/Dtos/WithdrawDto';
-import { ROUTES } from 'src/settings/routes';
+import { WithdrawDto } from '../../../../core/application/Dtos/WithdrawDto';
+import { ROUTES } from '../../../../settings/routes';
 import { WithdrawService } from '../../services/withdraw.service';
 
 @Controller()
