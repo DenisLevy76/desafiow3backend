@@ -2,7 +2,7 @@ import { Controller, Get, HttpStatus, Query, Res } from '@nestjs/common';
 import { Response } from 'express';
 import { GetBalanceDto } from '../../../../core/application/Dtos/getBalanceDto';
 import { ROUTES } from '../../../../settings/routes';
-import { GetBalanceService } from '../../services/getbalance.service';
+import { GetBalanceService } from '../services/getbalance.service';
 
 @Controller()
 export class GetBalanceController {

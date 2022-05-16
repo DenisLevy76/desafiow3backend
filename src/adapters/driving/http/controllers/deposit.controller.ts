@@ -1,7 +1,7 @@
 import { Body, Controller, HttpStatus, Patch, Res } from '@nestjs/common';
 import { ROUTES } from '../../../../settings/routes';
 import { Response } from 'express';
-import { DepositService } from '../../services/deposit.service';
+import { DepositService } from '../services/deposit.service';
 import { DepositDto } from '../../../../core/application/Dtos/DepositDto';
 
 @Controller()
