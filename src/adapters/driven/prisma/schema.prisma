@@ -18,7 +18,7 @@ model Client {
 
 model Account {
   id            String          @id
-  number        String
+  number        String          @unique
   bankOffice    BankOffice      @relation(fields: [bankOfficeId], references: [id])
   balance       Decimal
   owner         Client          @relation(fields: [clientId], references: [id])
@@ -30,7 +30,7 @@ model Account {
 
 model BankOffice {
   id            String          @id
-  number        String
+  number        String          @unique
   name          String
   Account       Account[]
   TransitionLog TransitionLog[]
