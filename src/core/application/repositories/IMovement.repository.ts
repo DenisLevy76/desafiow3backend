@@ -1,6 +1,11 @@
 import { MovementDto } from '../Dtos/MovementDto';
 
 export interface IMovementRepository {
-  findById(MovementId: string): Promise<MovementDto | null>;
+  findAllByDateTimeRange(
+    bankOfficeId: string,
+    accountId: string,
+    initialDate: Date,
+    finalDate: Date,
+  ): Promise<MovementDto[] | null>;
   save(movement: MovementDto): Promise<void>;
 }

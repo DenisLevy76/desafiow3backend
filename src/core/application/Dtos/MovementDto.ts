@@ -1,8 +1,10 @@
-import { MovementType } from '../../domain/entities/enums/MovementType';
+import { MovementType } from '@prisma/client';
+import { Decimal } from '@prisma/client/runtime';
 
 export type MovementDto = {
   id: string;
   type: MovementType;
-  amount: number;
+  amount: Decimal;
   accountId: string;
+  created_at: Date;
 };
